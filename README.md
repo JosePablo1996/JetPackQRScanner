@@ -1,23 +1,17 @@
-Jetpack QR Scanner
-Esta es una aplicación simple de escáner de códigos QR construida con Kotlin, Jetpack Compose y la API de CameraX, utilizando Google ML Kit para el reconocimiento de códigos de barras.
+Jetpack QR Scanner 📱
+Esta es una aplicación simple para escanear códigos QR, construida con Kotlin, el framework Jetpack Compose, la API de CameraX y la librería Google ML Kit para el reconocimiento de códigos de barras.
 
-Características
-Escáner de código QR en tiempo real.
+✨ Características clave
+.Escáner en tiempo real: Captura y procesa códigos QR al instante.
 
-Manejo de permisos de cámara de forma segura y moderna.
+.Manejo de permisos: Solicita y gestiona los permisos de la cámara de manera segura y moderna. Si el permiso es denegado, la aplicación guía al usuario a la configuración del sistema.
 
-Feedback visual para la detección del código.
+.Diseño intuitivo: Interfaz de usuario limpia y fácil de usar.
 
-Permisos
-La aplicación requiere permiso para acceder a la cámara del dispositivo. La lógica de permisos se maneja automáticamente y solicita el acceso al usuario cuando es necesario. Si el permiso es denegado, la aplicación guía al usuario a la configuración del sistema para habilitarlo manualmente.
+.Feedback visual: La app reacciona cuando detecta un código, mejorando la experiencia de usuario.
 
-Componentes principales
-ScannerActivity.kt: La actividad principal que maneja la lógica de la cámara, el análisis de la imagen y la detección de códigos QR.
-
-activity_scanner.xml: El archivo de diseño (layout) que contiene la vista previa de la cámara.
-
-Dependencias
-Asegúrate de tener las siguientes dependencias en tu archivo build.gradle (Module: app):
+🛠️ Requisitos y Dependencias
+Para compilar y ejecutar este proyecto, necesitas las siguientes dependencias en tu archivo build.gradle (Module: app):
 
 // CameraX
 implementation("androidx.camera:camera-core:1.3.1")
@@ -32,16 +26,26 @@ implementation("com.google.mlkit:barcode-scanning:17.2.0")
 implementation("androidx.appcompat:appcompat:1.6.1")
 implementation("androidx.activity:activity-ktx:1.8.2")
 
-Uso
-Abre la aplicación.
+🚀 Uso
+1) Abre la aplicación.
 
-La aplicación solicitará permiso para usar la cámara (si es la primera vez).
+2) La app pedirá permiso para usar la cámara (si es la primera vez).
 
-Apunta la cámara a un código QR.
+3) Apunta la cámara a un código QR para escanearlo.
 
-La aplicación detectará y procesará el código automáticamente.
+4) La app procesará el código automáticamente.
 
-Una vez que un código es detectado, la actividad de escaneo se cerrará y devolverá el resultado a la actividad anterior (por ejemplo, MainActivity.kt).
+5) Una vez detectado, la actividad del escáner se cerrará y devolverá el resultado a la actividad principal, por ejemplo, MainActivity.kt.
 
-Contribuciones
-Si deseas contribuir a este proyecto, por favor, haz un "fork" del repositorio, crea una nueva rama para tus cambios y envía un "pull request".
+🤝 Contribuciones
+¡Tu colaboración es bienvenida! Si deseas mejorar este proyecto, sigue estos pasos:
+
+Haz un "fork" de este repositorio.
+
+Crea una nueva rama (git checkout -b feature/nueva-funcionalidad).
+
+Haz tus cambios y haz "commit" de ellos (git commit -m 'feat: se añade nueva funcionalidad').
+
+Sube tu rama al repositorio remoto (git push origin feature/nueva-funcionalidad).
+
+Envía un "Pull Request".
