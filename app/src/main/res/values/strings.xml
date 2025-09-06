@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">JetpackQRScanner</string>
+    <string name="scanner_instruction">Alinea el código QR dentro del marco</string>
+</resources>
