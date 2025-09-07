@@ -7,90 +7,231 @@
     android:background="@drawable/bg_gradient"
     tools:context=".MainActivity">
 
-    <!-- Contenido principal centrado -->
-    <LinearLayout
+    <!-- ScrollView para permitir scroll cuando los resultados sean largos -->
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:padding="24dp">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-        <!-- Logo de la aplicación -->
-        <ImageView
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:src="@drawable/ic_qr_scanner_pro"
-            android:layout_marginBottom="24dp" />
-
-        <!-- Título principal -->
-        <TextView
-            android:layout_width="wrap_content"
+        <!-- Contenedor principal -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="QR SCANNER PRO"
-            android:textColor="@android:color/white"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            android:letterSpacing="0.02"
-            android:layout_marginBottom="8dp" />
+            android:orientation="vertical"
+            android:padding="24dp">
 
-        <!-- Subtítulo -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ESCÁNER DE CÓDIGOS QR"
-            android:textColor="#CCFFFFFF"
-            android:textSize="16sp"
-            android:textStyle="normal"
-            android:layout_marginBottom="32dp" />
+            <!-- Contenido principal centrado -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
 
-        <!-- Descripción -->
-        <TextView
-            android:layout_width="280dp"
-            android:layout_height="wrap_content"
-            android:text="Escanea cualquier código QR para obtener información instantánea de forma rápida y segura"
-            android:textAlignment="center"
-            android:textColor="#E6FFFFFF"
-            android:textSize="16sp"
-            android:lineSpacingExtra="4sp"
-            android:layout_marginBottom="32dp" />
+                <!-- Logo de la aplicación -->
+                <ImageView
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:src="@drawable/ic_qr_scanner_pro"
+                    android:layout_marginBottom="24dp"
+                    app:tint="#FFFFFF" />
 
-        <!-- Separador -->
-        <View
-            android:layout_width="200dp"
-            android:layout_height="1dp"
-            android:background="#33FFFFFF"
-            android:layout_marginBottom="32dp" />
+                <!-- Título principal -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="QR SCANNER PRO"
+                    android:textColor="#FFFFFF"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.02"
+                    android:layout_marginBottom="8dp" />
 
-        <!-- Instrucción -->
-        <TextView
-            android:layout_width="280dp"
-            android:layout_height="wrap_content"
-            android:text="Presiona el botón de escaneo para comenzar"
-            android:textAlignment="center"
-            android:textColor="#CCFFFFFF"
-            android:textSize="14sp"
-            android:layout_marginBottom="32dp" />
+                <!-- Subtítulo -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ESCÁNER DE CÓDIGOS QR"
+                    android:textColor="#B3FFFFFF"
+                    android:textSize="16sp"
+                    android:textStyle="normal"
+                    android:layout_marginBottom="32dp" />
 
-        <!-- Botón principal de escaneo - ESTILO CORREGIDO -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnStartScan"
-            android:layout_width="250dp"
-            android:layout_height="56dp"
-            android:text="ESCANEAR CÓDIGO QR"
-            android:textAllCaps="true"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:icon="@drawable/ic_scan_main"
-            app:iconGravity="textStart"
-            app:iconPadding="12dp"
-            app:cornerRadius="28dp"
-            app:elevation="6dp"
-            style="@style/Widget.Material3.Button" />
+                <!-- Descripción -->
+                <TextView
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:text="Escanea cualquier código QR para obtener información instantánea de forma rápida y segura"
+                    android:textAlignment="center"
+                    android:textColor="#E6FFFFFF"
+                    android:textSize="16sp"
+                    android:lineSpacingExtra="4sp"
+                    android:layout_marginBottom="32dp" />
 
-    </LinearLayout>
+                <!-- Separador -->
+                <View
+                    android:layout_width="200dp"
+                    android:layout_height="1dp"
+                    android:background="#40FFFFFF"
+                    android:layout_marginBottom="32dp" />
 
-    <!-- Indicador de seguridad en la parte inferior - TINT CORREGIDO -->
+                <!-- Instrucción -->
+                <TextView
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:text="Presiona el botón de escaneo para comenzar"
+                    android:textAlignment="center"
+                    android:textColor="#CCFFFFFF"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="32dp" />
+
+                <!-- Botón principal de escaneo -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnStartScan"
+                    android:layout_width="250dp"
+                    android:layout_height="56dp"
+                    android:text="ESCANEAR CÓDIGO QR"
+                    android:textAllCaps="true"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    app:icon="@drawable/ic_scan_main"
+                    app:iconGravity="textStart"
+                    app:iconPadding="12dp"
+                    app:cornerRadius="28dp"
+                    app:elevation="8dp"
+                    app:backgroundTint="#FF6B6B"
+                    app:strokeColor="#FFFFFF"
+                    app:strokeWidth="2dp"
+                    app:rippleColor="#FF8E53" />
+
+            </LinearLayout>
+
+            <!-- Sección de resultados - MEJORADA -->
+            <LinearLayout
+                android:id="@+id/resultsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:background="@drawable/bg_results"
+                android:padding="24dp"
+                android:layout_marginTop="32dp"
+                android:gravity="center">
+
+                <!-- Título de resultados -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="RESULTADO DEL ESCANEO"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_marginBottom="16dp"/>
+
+                <!-- Separador decorativo -->
+                <View
+                    android:layout_width="120dp"
+                    android:layout_height="3dp"
+                    android:background="#FFD93D"
+                    android:layout_marginBottom="16dp"/>
+
+                <!-- Contenedor del resultado -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_result_text"
+                    android:padding="20dp"
+                    android:layout_marginBottom="20dp">
+
+                    <TextView
+                        android:id="@+id/tvScanResult"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="#2D3748"
+                        android:textSize="16sp"
+                        android:gravity="center"
+                        android:textIsSelectable="true"
+                        android:lineSpacingMultiplier="1.2"
+                        android:textStyle="normal"/>
+
+                </LinearLayout>
+
+                <!-- Botones de acción -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="16dp"
+                    android:weightSum="3">
+
+                    <!-- Botón Copiar -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnCopyResult"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1"
+                        android:text="COPIAR"
+                        android:textSize="14sp"
+                        android:textAllCaps="true"
+                        android:textColor="#FFFFFF"
+                        app:icon="@drawable/ic_copy"
+                        app:iconGravity="textStart"
+                        app:iconPadding="8dp"
+                        app:cornerRadius="24dp"
+                        app:backgroundTint="#4A90E2"
+                        app:rippleColor="#357ABD"
+                        android:layout_marginEnd="8dp"/>
+
+                    <!-- Botón Abrir (solo visible para URLs) -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnOpenBrowser"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1"
+                        android:text="ABRIR"
+                        android:textSize="14sp"
+                        android:textAllCaps="true"
+                        android:textColor="#FFFFFF"
+                        app:icon="@drawable/ic_open"
+                        app:iconGravity="textStart"
+                        app:iconPadding="8dp"
+                        app:cornerRadius="24dp"
+                        app:backgroundTint="#FF6B6B"
+                        app:rippleColor="#FF8E53"
+                        android:layout_marginEnd="8dp"
+                        android:visibility="gone"/>
+
+                    <!-- Botón Limpiar -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnClearResult"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1"
+                        android:text="LIMPIAR"
+                        android:textSize="14sp"
+                        android:textAllCaps="true"
+                        android:textColor="#2D3748"
+                        app:icon="@drawable/ic_clear"
+                        app:iconGravity="textStart"
+                        app:iconPadding="8dp"
+                        app:cornerRadius="24dp"
+                        app:backgroundTint="#E2E8F0"
+                        app:strokeColor="#A0AEC0"
+                        app:strokeWidth="1dp"
+                        app:rippleColor="#CBD5E0"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Indicador de seguridad en la parte inferior -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -98,21 +239,25 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="24dp"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@drawable/bg_security"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="8dp">
 
         <ImageView
             android:layout_width="16dp"
             android:layout_height="16dp"
             android:src="@drawable/ic_shield"
-            app:tint="#4CAF50" />
+            app:tint="#4ADE80" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="Escaneo seguro - Tus datos están protegidos"
-            android:textColor="#80FFFFFF"
-            android:textSize="12sp" />
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
 </RelativeLayout>

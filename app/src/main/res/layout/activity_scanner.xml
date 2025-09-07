@@ -13,91 +13,235 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <!-- Marco para QR en el centro -->
-    <ImageView
-        android:id="@+id/ivScanFrame"
+    <!-- Overlay semi-transparente para mejor contraste -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#66000000" />
+
+    <!-- Marco para QR en el centro con diseño mejorado -->
+    <RelativeLayout
+        android:id="@+id/scannerFrame"
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_centerInParent="true"
-        android:src="@drawable/ic_scan_placeholder"
-        android:contentDescription="Marco de escaneo QR"
-        android:scaleType="centerInside" />
+        android:background="@drawable/scanner_frame_bg">
 
-    <!-- Texto instructivo -->
+        <!-- Esquinas decorativas simplificadas -->
+        <View
+            android:layout_width="20dp"
+            android:layout_height="4dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:background="@android:color/white" />
+
+        <View
+            android:layout_width="4dp"
+            android:layout_height="20dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:background="@android:color/white" />
+
+        <View
+            android:layout_width="20dp"
+            android:layout_height="4dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:background="@android:color/white" />
+
+        <View
+            android:layout_width="4dp"
+            android:layout_height="20dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:background="@android:color/white" />
+
+        <View
+            android:layout_width="20dp"
+            android:layout_height="4dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:background="@android:color/white" />
+
+        <View
+            android:layout_width="4dp"
+            android:layout_height="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:background="@android:color/white" />
+
+        <View
+            android:layout_width="20dp"
+            android:layout_height="4dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:background="@android:color/white" />
+
+        <View
+            android:layout_width="4dp"
+            android:layout_height="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:background="@android:color/white" />
+
+        <!-- Línea de escaneo animada -->
+        <View
+            android:id="@+id/scanLine"
+            android:layout_width="260dp"
+            android:layout_height="4dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/scan_line_gradient"
+            android:visibility="visible" />
+
+    </RelativeLayout>
+
+    <!-- Texto instructivo mejorado -->
     <TextView
         android:id="@+id/tvInstruction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/bottomButtonLayout"
         android:layout_centerHorizontal="true"
-        android:text="Escanee el producto y encuentre el mejor precio"
+        android:text="Apunta al código QR dentro del marco"
         android:textColor="@android:color/white"
         android:textSize="16sp"
-        android:layout_marginBottom="20dp"
-        android:gravity="center" />
+        android:textStyle="bold"
+        android:layout_marginBottom="24dp"
+        android:padding="16dp"
+        android:background="@drawable/rounded_corner_bg"
+        android:gravity="center"
+        android:elevation="8dp" />
 
-    <!-- Botón de captura manual (centrado en la parte inferior) -->
-    <Button
-        android:id="@+id/btnCapture"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_above="@+id/bottomButtonLayout"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/btn_capture_shape"
-        android:visibility="gone"
-        android:contentDescription="Capturar imagen" />
-
-    <!-- Barra inferior con botones -->
+    <!-- Barra inferior con botones - diseño mejorado -->
     <LinearLayout
         android:id="@+id/bottomButtonLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#80000000"
-        android:padding="16dp"
+        android:background="@drawable/top_rounded_bg"
+        android:paddingVertical="16dp"
+        android:paddingHorizontal="16dp"
         android:orientation="horizontal"
         android:gravity="center">
 
-        <!-- Menú desplegable para tipo de escaneo -->
-        <androidx.appcompat.widget.AppCompatSpinner
-            android:id="@+id/spinnerScanType"
+        <!-- Selector de tipo de escaneo -->
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/spinner_background"
-            android:popupBackground="#FFFFFF"
-            android:spinnerMode="dropdown"
-            android:layout_marginEnd="8dp" />
+            android:orientation="vertical"
+            android:gravity="center"
+            android:paddingEnd="8dp">
 
-        <Button
-            android:id="@+id/btnLote"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Lote"
-            android:backgroundTint="#FF3700B3"
-            android:textColor="@android:color/white"
-            android:layout_marginEnd="8dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tipo de escaneo"
+                android:textColor="#CCFFFFFF"
+                android:textSize="12sp"
+                android:layout_marginBottom="4dp" />
 
-        <Button
-            android:id="@+id/btnGaleria"
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/spinnerScanType"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/spinner_background_modern"
+                android:popupBackground="@drawable/spinner_dropdown_bg"
+                android:spinnerMode="dropdown"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp" />
+        </LinearLayout>
+
+        <!-- Botón Lote mejorado -->
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Galería"
-            android:backgroundTint="#FF6200EE"
-            android:textColor="@android:color/white" />
+            android:orientation="vertical"
+            android:gravity="center"
+            android:paddingEnd="8dp">
+
+            <ImageButton
+                android:id="@+id/btnLote"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:background="@drawable/round_button_bg"
+                android:src="@android:drawable/ic_menu_sort_by_size"
+                android:contentDescription="Escaneo por lote"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lote"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+
+        <!-- Botón de captura manual mejorado -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:paddingEnd="8dp">
+
+            <ImageButton
+                android:id="@+id/btnCapture"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:background="@drawable/capture_button_bg"
+                android:src="@android:drawable/ic_menu_camera"
+                android:contentDescription="Capturar código"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Escanear"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+
+        <!-- Botón Galería mejorado -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/btnGaleria"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:background="@drawable/round_button_bg"
+                android:src="@android:drawable/ic_menu_gallery"
+                android:contentDescription="Abrir galería"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Galería"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
 
     </LinearLayout>
 
-    <!-- Barra superior con título y botones de control -->
+    <!-- Barra superior con título y botones de control - diseño mejorado -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:background="#80000000"
-        android:padding="16dp"
+        android:background="@drawable/bottom_rounded_bg"
+        android:paddingVertical="16dp"
+        android:paddingHorizontal="20dp"
         android:orientation="horizontal"
         android:gravity="center_vertical">
 
@@ -105,50 +249,50 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="QR/Barcode"
+            android:text="Escáner QR/Barcode"
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <!-- Botón de flash/torch -->
+        <!-- Botón de flash/torch mejorado -->
         <ImageButton
             android:id="@+id/btnFlash"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:src="@drawable/ic_flash_off"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Flash"
-            android:layout_marginEnd="8dp" />
+            android:src="@android:drawable/ic_menu_set_as"
+            android:background="@drawable/circle_button_bg"
+            android:contentDescription="Activar flash"
+            android:layout_marginEnd="12dp" />
 
-        <!-- Botón de cambiar cámara -->
+        <!-- Botón de cambiar cámara mejorado -->
         <ImageButton
             android:id="@+id/btnSwitchCamera"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:src="@drawable/ic_switch_camera"
-            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@android:drawable/ic_menu_rotate"
+            android:background="@drawable/circle_button_bg"
             android:contentDescription="Cambiar cámara" />
 
     </LinearLayout>
 
-    <!-- Controles de zoom -->
+    <!-- Controles de zoom mejorados -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
         android:orientation="vertical"
-        android:padding="8dp"
-        android:background="#80000000"
-        android:layout_marginEnd="8dp">
+        android:padding="12dp"
+        android:background="@drawable/rounded_corner_bg"
+        android:layout_marginEnd="12dp">
 
         <ImageButton
             android:id="@+id/btnZoomIn"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/ic_zoom_in"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@android:drawable/ic_menu_add"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Zoom in" />
+            android:contentDescription="Acercar zoom" />
 
         <TextView
             android:id="@+id/tvZoomLevel"
@@ -156,31 +300,42 @@
             android:layout_height="wrap_content"
             android:text="1.0x"
             android:textColor="@android:color/white"
-            android:textSize="12sp"
+            android:textSize="14sp"
             android:gravity="center"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:layout_marginVertical="8dp" />
 
         <ImageButton
             android:id="@+id/btnZoomOut"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/ic_zoom_out"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Zoom out" />
+            android:contentDescription="Alejar zoom" />
 
     </LinearLayout>
 
-    <!-- Botón de enfoque automático (nuevo) -->
+    <!-- Botón de enfoque automático mejorado -->
     <ImageButton
         android:id="@+id/btnAutoFocus"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_alignParentEnd="true"
         android:layout_above="@+id/bottomButtonLayout"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/circle_button_bg"
         android:contentDescription="Enfoque automático"
-        android:src="@drawable/ic_focus" />
+        android:src="@android:drawable/ic_menu_search" />
+
+    <!-- Indicador de escaneo exitoso simplificado -->
+    <ImageView
+        android:id="@+id/ivSuccess"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        android:src="@android:drawable/ic_menu_help"
+        android:visibility="invisible"
+        android:contentDescription="Escaneo exitoso" />
 
 </RelativeLayout>

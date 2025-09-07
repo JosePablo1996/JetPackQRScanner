@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-  
-</selector>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- Gradiente para la línea de escaneo -->
+    <gradient
+        android:startColor="#004CAF50"
+        android:centerColor="#FF4CAF50"
+        android:endColor="#004CAF50"
+        android:angle="0"
+        android:type="linear" />
+
+    <!-- Esquinas redondeadas para un aspecto suave -->
+    <corners android:radius="2dp" />
+
+    <!-- Tamaño de la forma -->
+    <size
+        android:width="260dp"
+        android:height="4dp" />
+
+</shape>

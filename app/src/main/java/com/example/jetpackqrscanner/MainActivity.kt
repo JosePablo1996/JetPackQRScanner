@@ -69,30 +69,52 @@ import androidx.core.content.ContextCompat
 import kotlinx.coroutines.delay
 
 class MainActivity : ComponentActivity() {
-    private var resultText by mutableStateOf("")
-    private var showSplash by mutableStateOf(true)
+    // Estados mejorados con nombres más descriptivos
+    private var scannedResultText by mutableStateOf("")
+    private var showSplashScreen by mutableStateOf(true)
+    private var cameraPermissionDenied by mutableStateOf(false)
+
+    // Constantes para códigos de resultado y claves de intent
+    companion object {
+        const val SCAN_RESULT_KEY = "SCAN_RESULT"
+        const val SCANNER_REQUEST_CODE = 1001
+    }
 
     // Launcher para iniciar la actividad del escáner
     private val scannerLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
-        if (result.resultCode == RESULT_OK) {
-            val scannedResult = result.data?.getStringExtra("SCAN_RESULT") ?: ""
-            if (scannedResult.isNotBlank()) {
-                resultText = scannedResult
-                Toast.makeText(this, "Escaneo exitoso!", Toast.LENGTH_SHORT).show()
-            }
-        }
+        handleScanResult(result.resultCode, result.data)
     }
 
     // Launcher para permisos de cámara
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted ->
+        handlePermissionResult(isGranted)
+    }
+
+    private fun handleScanResult(resultCode: Int, data: Intent?) {
+        if (resultCode == RESULT_OK) {
+            val scannedResult = data?.getStringExtra(SCAN_RESULT_KEY).orEmpty()
+            if (scannedResult.isNotBlank()) {
+                scannedResultText = scannedResult
+                showToast("Escaneo exitoso!")
+            } else {
+                showToast("No se pudo leer el código QR")
+            }
+        } else if (resultCode == RESULT_CANCELED) {
+            showToast("Escaneo cancelado")
+        }
+    }
+
+    private fun handlePermissionResult(isGranted: Boolean) {
         if (isGranted) {
+            cameraPermissionDenied = false
             openScanner()
         } else {
-            Toast.makeText(this, "Permiso de cámara denegado", Toast.LENGTH_LONG).show()
+            cameraPermissionDenied = true
+            showToast("Permiso de cámara denegado. Puede activarlo en Configuración > Aplicaciones")
         }
     }
 
@@ -103,44 +125,79 @@ class MainActivity : ComponentActivity() {
 
     private fun checkCameraPermission() {
         when {
-            ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.CAMERA
-            ) == PackageManager.PERMISSION_GRANTED -> {
+            hasCameraPermission() -> {
                 openScanner()
             }
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
-                    shouldShowRequestPermissionRationale(Manifest.permission.CAMERA) -> {
-                Toast.makeText(this, "Se necesita el permiso de la cámara para escanear", Toast.LENGTH_LONG).show()
+            shouldShowPermissionRationale() -> {
+                showToast("Se necesita el permiso de la cámara para escanear códigos QR")
+                requestCameraPermission()
             }
             else -> {
-                requestPermissionLauncher.launch(Manifest.permission.CAMERA)
+                requestCameraPermission()
             }
         }
     }
 
+    private fun hasCameraPermission(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            this,
+            Manifest.permission.CAMERA
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun shouldShowPermissionRationale(): Boolean {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
+                shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)
+    }
+
+    private fun requestCameraPermission() {
+        requestPermissionLauncher.launch(Manifest.permission.CAMERA)
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun clearResult() {
+        scannedResultText = ""
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Restaurar estado después de rotación o recreación
+        if (savedInstanceState != null) {
+            scannedResultText = savedInstanceState.getString("resultText", "")
+            showSplashScreen = savedInstanceState.getBoolean("showSplash", true)
+        }
+
         setContent {
             MaterialTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    if (showSplash) {
+                    if (showSplashScreen) {
                         SplashScreen {
-                            showSplash = false
+                            showSplashScreen = false
                         }
                     } else {
                         QRScannerApp(
-                            resultText = resultText,
+                            resultText = scannedResultText,
                             onScanClick = { checkCameraPermission() },
-                            onClearClick = { resultText = "" }
+                            onClearClick = { clearResult() },
+                            cameraPermissionDenied = cameraPermissionDenied
                         )
                     }
                 }
             }
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("resultText", scannedResultText)
+        outState.putBoolean("showSplash", showSplashScreen)
     }
 }
 
@@ -236,7 +293,12 @@ fun SplashScreen(onSplashEnd: () -> Unit) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun QRScannerApp(resultText: String, onScanClick: () -> Unit, onClearClick: () -> Unit) {
+fun QRScannerApp(
+    resultText: String,
+    onScanClick: () -> Unit,
+    onClearClick: () -> Unit,
+    cameraPermissionDenied: Boolean = false
+) {
     var visible by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
@@ -306,6 +368,32 @@ fun QRScannerApp(resultText: String, onScanClick: () -> Unit, onClearClick: () -
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                // Mensaje de error de permisos
+                if (cameraPermissionDenied) {
+                    AnimatedVisibility(
+                        visible = visible,
+                        enter = slideInVertically() + fadeIn()
+                    ) {
+                        Card(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 20.dp, vertical = 10.dp),
+                            shape = RoundedCornerShape(16.dp),
+                            colors = CardDefaults.cardColors(
+                                containerColor = Color(0x66FF0000) // Rojo semitransparente
+                            )
+                        ) {
+                            Text(
+                                text = "Permiso de cámara denegado. La aplicación no puede escanear sin este permiso.",
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = Color.White,
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier.padding(16.dp)
+                            )
+                        }
+                    }
+                }
+
                 // Header con imagen mejorado
                 AnimatedVisibility(
                     visible = visible,
@@ -458,6 +546,7 @@ fun QRScannerApp(resultText: String, onScanClick: () -> Unit, onClearClick: () -
                             contentColor = Color(0xFFFF3366)
                         ),
                         shape = RoundedCornerShape(18.dp),
+                        enabled = !cameraPermissionDenied,
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 40.dp)

@@ -1,4 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- Estado presionado -->
+    <item android:state_pressed="true">
+        <shape android:shape="oval">
+            <solid android:color="#FF4CAF50" />
+            <stroke
+                android:width="2dp"
+                android:color="#80FFFFFF" />
+        </shape>
+    </item>
+
+    <!-- Estado por defecto -->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="#FF2D2D2D" />
+            <stroke
+                android:width="2dp"
+                android:color="#FF4CAF50" />
+        </shape>
+    </item>
+
 </selector>

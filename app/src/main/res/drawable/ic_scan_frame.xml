@@ -1,4 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="280dp"
+    android:height="280dp"
+    android:viewportWidth="280"
+    android:viewportHeight="280">
 
-</selector>
+    <!-- Marco exterior -->
+    <path
+        android:pathData="M20,0 L260,0
+                         C265,0 270,5 270,10
+                         L270,270
+                         C270,275 265,280 260,280
+                         L20,280
+                         C15,280 10,275 10,270
+                         L10,10
+                         C10,5 15,0 20,0Z"
+        android:strokeWidth="2"
+        android:strokeColor="#FFFFFF"
+        android:fillColor="#00000000" />
+
+    <!-- Esquina superior izquierda -->
+    <path
+        android:pathData="M20,0 L50,0 L20,30 Z"
+        android:strokeWidth="0"
+        android:fillColor="#4CAF50" />
+
+    <path
+        android:pathData="M20,0 L20,30 L10,20 L10,10 L20,0Z"
+        android:strokeWidth="0"
+        android:fillColor="#4CAF50" />
+
+    <!-- Esquina superior derecha -->
+    <path
+        android:pathData="M260,0 L230,0 L260,30 Z"
+        android:strokeWidth="0"
+        android:fillColor="#4CAF50" />
+
+    <path
+        android:pathData="M260,0 L260,30 L270,20 L270,10 L260,0Z"
+        android:strokeWidth="0"
+        android:fillColor="#4CAF50" />
+
+    <!-- Esquina inferior izquierda -->
+    <path
+        android:pathData="M20,280 L50,280 L20,250 Z"
+        android:strokeWidth="0"
+        android:fillColor="#4CAF50" />
+
+    <path
+        android:pathData="M20,280 L20,250 L10,260 L10,270 L20,280Z"
+        android:strokeWidth="0"
+        android:fillColor="#4CAF50" />
+
+    <!-- Esquina inferior derecha -->
+    <path
+        android:pathData="M260,280 L230,280 L260,250 Z"
+        android:strokeWidth="0"
+        android:fillColor="#4CAF50" />
+
+    <path
+        android:pathData="M260,280 L260,250 L270,260 L270,270 L260,280Z"
+        android:strokeWidth="0"
+        android:fillColor="#4CAF50" />
+
+</vector>
